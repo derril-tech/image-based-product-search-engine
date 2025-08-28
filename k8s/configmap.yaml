@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: image-search-config
+  namespace: image-search
+data:
+  NODE_ENV: "production"
+  DB_HOST: "postgres-service"
+  DB_PORT: "5432"
+  DB_NAME: "image_search"
+  REDIS_URL: "redis://redis-service:6379"
+  NATS_URL: "nats://nats-service:4222"
+  MILVUS_HOST: "milvus-service"
+  MILVUS_PORT: "19530"
+  S3_ENDPOINT: "http://minio-service:9000"
+  S3_BUCKET: "image-search"
+  CLIP_MODEL: "openai/clip-vit-base-patch32"
+  YOLO_MODEL: "yolov8n.pt"
+  VECTOR_DIMENSION: "512"
+  MAX_IMAGE_SIZE: "1024"
+  BATCH_SIZE: "32"

@@ -1,0 +1,40 @@
+{
+    "name": "image-based-product-search-engine",
+    "version": "0.1.0",
+    "description": "AI-powered image-based product search engine",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "scripts": {
+        "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:gateway\" \"npm run dev:workers\"",
+        "dev:frontend": "npm run dev --workspace=apps/frontend",
+        "dev:gateway": "npm run start:dev --workspace=apps/gateway",
+        "dev:workers": "cd apps/workers && python -m uvicorn src.main:app --reload --host 0.0.0.0 --port 8000",
+        "build": "npm run build --workspaces",
+        "build:frontend": "npm run build --workspace=apps/frontend",
+        "build:gateway": "npm run build --workspace=apps/gateway",
+        "build:shared": "npm run build --workspace=packages/shared",
+        "lint": "npm run lint --workspaces",
+        "lint:fix": "npm run lint:fix --workspaces",
+        "test": "npm run test --workspaces",
+        "clean": "npm run clean --workspaces && rm -rf node_modules",
+        "install:all": "npm install && cd apps/workers && pip install -r requirements.txt",
+        "docker:build": "docker-compose build",
+        "docker:up": "docker-compose up -d",
+        "docker:down": "docker-compose down",
+        "docker:logs": "docker-compose logs -f"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2",
+        "prettier": "^3.1.0",
+        "eslint": "^8.55.0",
+        "@typescript-eslint/eslint-plugin": "^6.13.0",
+        "@typescript-eslint/parser": "^6.13.0"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    }
+}
